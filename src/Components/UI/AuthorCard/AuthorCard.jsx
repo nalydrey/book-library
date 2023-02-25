@@ -7,20 +7,20 @@ import ava from '../../../accets/avatar.png'
 
 const AuthorCard = (props) => {
 
-    const { author } = props
+    const { author, onClick } = props
 
-    const [pages, setPages] = useState(0)
+    const [books, setBooks] = useState(0)
 
     useEffect(()=>{
-        axios.get(url+`books?author.id=${author.id}&_limit=0`).then(resp => {
-            setPages(resp.headers['x-total-count']);
+        axios.get(url+`books?author=${author.id}&_limit=0`).then(resp => {
+            setBooks(resp.headers['x-total-count']);
         })
     }, [])
 
 
   return (
     <div className='author' 
-        //  onClick={() => onClick(author.id)}
+         onClick={() => onClick(author.id)}
     >
         <div className='author__ava'>
             <img src={ava} alt=""/>
@@ -28,7 +28,7 @@ const AuthorCard = (props) => {
         <div className='author__content'>
             <h3>{author.firstName} {author.lastName}</h3>
             <p>Books</p>
-            <p>{pages}</p>
+            <p>{books}</p>
             {/* {user && user.isAdmin && !isAdmin &&
 
             <div className='del'>

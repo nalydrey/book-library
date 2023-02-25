@@ -3,18 +3,14 @@ import BookCard from "../UI/BookCard/BookCard";
 import axios from "axios";
 import {url} from "../App/App";
 import './BooksContainer.scss'
-import {Box, MenuItem, TextField} from "@mui/material";
+import {Box, MenuItem, Pagination, TextField} from "@mui/material";
 import * as PropTypes from "prop-types";
 
-function Search(props) {
-    return null;
-}
 
-Search.propTypes = {
-    color: PropTypes.string,
-    sx: PropTypes.shape({mr: PropTypes.number, my: PropTypes.number})
-};
-const BooksContainer = () => {
+const BooksContainer = (props) => {
+
+    const {authorId=''} = props
+
 
     const limit = 2
     const arr = [
@@ -46,30 +42,71 @@ const BooksContainer = () => {
 
     const [books, setBooks] = useState([])
     const [totalBooks, setTotalBooks] = useState(0)
+    const [pageQty, setPageQty] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
 
-    useEffect(()=>{
-        axios.get(url+`books?_limit=${limit}`).then(resp => {
-          const totalBooks = +resp.headers['x-total-count']
-          setTotalBooks(totalBooks)
-          console.log(totalBooks)
-          setBooks(resp.data)
+    const loadBooks = (string) =>{
+        console.log(authorId)
+        axios.get(url+`books?${authorId&&`author=${authorId}`}&_limit=${limit}&_page=${currentPage}&${string}`)
+            .then(resp => {
+                const totalBooks = +resp.headers['x-total-count']
+                const pages = Math.ceil(totalBooks/limit)
+                setTotalBooks(totalBooks)
+                setPageQty(pages)
+                setBooks(resp.data)
             }
         )
-    }, [])
+    }
+
+    useEffect(()=>{
+        // console.log(authorId)
+        loadBooks()
+    }, [currentPage, authorId])
+
+    const sort = (e) => {
+        console.log(e.target.value)
+        switch (e.target.value){
+            case 'name': {
+                loadBooks('_sort=name&_order=asc')
+                break
+            }
+            case 'nameRev': {
+                loadBooks('_sort=name&_order=desc')
+                break
+            }
+            case 'count': {
+                loadBooks('_sort=pageCount&_order=asc')
+                break
+            }
+            case 'countRev': {
+                loadBooks('_sort=pageCount&_order=desc')
+                break
+            }
+            case 'genre': {
+                loadBooks('_sort=genre&_order=asc')
+                break
+            }
+            case 'genreRev': {
+                loadBooks('_sort=genre&_order=desc')
+                break
+            }
+        }
+    }
+
 
   return (
     <div className='book__container'>
       <div className='books__control'>
         <Box sx={{minWidth: '250px', maxWidth: '350px', width: '100%', display: 'flex', alignItems: 'flex-end' }}>
-          <Search color={'primary'} sx={{ mr: 1, my: 0.5 }} />
+          {/*<Search color={'primary'} sx={{ mr: 1, my: 0.5 }} />*/}
           <TextField label="Find by name"
-                     // onChange={search}
+                     onChange={(e) => loadBooks(`name_like=${e.target.value}`)}
                      variant="standard"
                      fullWidth
           />
         </Box>
         <TextField select
-                   // onChange={sort}
+                   onChange={sort}
                    label="Sort by"
                    defaultValue=''
                    variant="standard"
@@ -91,14 +128,14 @@ const BooksContainer = () => {
         />)}
       </div>
 
+      {totalBooks > limit &&
       <div className='books__pagination'>
-           {/*{totalBooks > limit &&*/}
-           {/*     <Pagination onChange={(_, number)=> pagination(number)}*/}
-           {/*                 count={pageQty}*/}
-           {/*                 variant="outlined"*/}
-           {/*                 page={currentPage}*/}
-           {/*                 shape="rounded" />}*/}
-      </div>
+                <Pagination variant="outlined"
+                            count={pageQty}
+                            onChange={(_, number)=> setCurrentPage(number)}
+                            page={currentPage}
+                            shape="rounded" />
+      </div>}
 
     </div>
   )
