@@ -1,17 +1,19 @@
-import axios from 'axios'
 import React from 'react'
-import { url } from '../App/App'
+import './LeftPanel.scss'
 
-const LeftPanel = () => {
 
-  axios.get(url+'authors').then((resp)=>{
-console.log(resp.data);
-  })
+const LeftPanel = (props) => {
+
+  const {children} = props
+
 
   return (
-    <div className='left__box'>
-        Left Panel
+    <div className='left__panel'>
+      {children}
     </div>
+
+
+
   )
 }
 

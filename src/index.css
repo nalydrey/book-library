@@ -9,3 +9,9 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
+
+#root{
+  background: #2b2b2b;
+  min-height: 100vh;
+;
+}

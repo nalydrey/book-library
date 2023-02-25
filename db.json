@@ -6,13 +6,7 @@
       "firstName": "Admin",
       "fathersName": "Admin",
       "lastName": "Admin",
-      "born": "03.04.2023",
-      "books": [
-        "431a6d51-691d-47e7-8a33-aecb88dd315b",
-        "26dae141-cea9-4040-9595-a2a51328b12f",
-        "9470b5f7-bf96-4602-8598-53efcbdf2d18",
-        "7507e524-1a35-45a9-b9ea-5a364d1ea281"
-      ]
+      "born": "03.04.2023"
     },
     {
       "id": "7d96c86c-2e0e-43a2-8cf6-489519d5e0a1",
@@ -20,11 +14,7 @@
       "firstName": "Aleksey",
       "fathersName": "Viktorovich",
       "lastName": "Nikolayenko",
-      "born": "31/03/1989",
-      "books": [
-        "c48dbb2a-66fe-4e9a-893d-dedee6c5845d",
-        "25aa18ca-3028-4841-be0f-70f444164a4c"
-      ]
+      "born": "31/03/1989"
     },
     {
       "id": "855a84e7-c54d-4d2a-b901-e6849834f008",
@@ -32,98 +22,62 @@
       "firstName": "Andriy",
       "fathersName": "Valeriyovich",
       "lastName": "Melnichenko",
-      "born": "15.09.2005",
-      "books": [
-        "80983d9f-ec24-4f44-b962-78f3d86557d6",
-        "0b541255-3c31-44e2-ae9b-3513ddb2a335"
-      ]
+      "born": "15.09.2005"
     }
   ],
   "books": [
     {
       "id": "c48dbb2a-66fe-4e9a-893d-dedee6c5845d",
-      "author": {
-        "id": "7d96c86c-2e0e-43a2-8cf6-489519d5e0a1",
-        "firstName": "Aleksey",
-        "lastName": "Nikolayenko"
-      },
+      "author": "7d96c86c-2e0e-43a2-8cf6-489519d5e0a1",
       "name": "Funny",
       "pageCount": 221,
       "genre": "Comedy"
     },
     {
       "id": "431a6d51-691d-47e7-8a33-aecb88dd315b",
-      "author": {
-        "id": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
-        "firstName": "Admin",
-        "lastName": "Admin"
-      },
+      "author": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
       "name": "Red",
       "pageCount": 432,
       "genre": "Criminal"
     },
     {
       "id": "26dae141-cea9-4040-9595-a2a51328b12f",
-      "author": {
-        "id": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
-        "firstName": "Admin",
-        "lastName": "Admin"
-      },
+      "author": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
       "name": "My friend's car",
       "pageCount": 234,
       "genre": "Detective"
     },
     {
       "id": "9470b5f7-bf96-4602-8598-53efcbdf2d18",
-      "author": {
-        "id": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
-        "firstName": "Admin",
-        "lastName": "Admin"
-      },
+      "author": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
       "name": "Fantasy",
       "pageCount": 234,
       "genre": "Fantasy"
     },
     {
       "id": "7507e524-1a35-45a9-b9ea-5a364d1ea281",
-      "author": {
-        "id": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
-        "firstName": "Admin",
-        "lastName": "Admin"
-      },
+      "author": "31edeb15-fc4d-42a2-812c-1820c96c9ac4",
       "name": "Gulliver",
       "pageCount": 112,
       "genre": "For children"
     },
     {
       "id": "80983d9f-ec24-4f44-b962-78f3d86557d6",
-      "author": {
-        "id": "855a84e7-c54d-4d2a-b901-e6849834f008",
-        "firstName": "Andriy",
-        "lastName": "Melnichenko"
-      },
+      "author": "855a84e7-c54d-4d2a-b901-e6849834f008",
       "name": "Influence",
       "pageCount": 317,
       "genre": "Detective"
     },
     {
       "id": "0b541255-3c31-44e2-ae9b-3513ddb2a335",
-      "author": {
-        "id": "855a84e7-c54d-4d2a-b901-e6849834f008",
-        "firstName": "Andriy",
-        "lastName": "Melnichenko"
-      },
+      "author": "855a84e7-c54d-4d2a-b901-e6849834f008",
       "name": "World",
       "pageCount": 129,
       "genre": "Fantasy"
     },
     {
       "id": "25aa18ca-3028-4841-be0f-70f444164a4c",
-      "author": {
-        "id": "7d96c86c-2e0e-43a2-8cf6-489519d5e0a1",
-        "firstName": "Aleksey",
-        "lastName": "Nikolayenko"
-      },
+      "author": "7d96c86c-2e0e-43a2-8cf6-489519d5e0a1",
       "name": "Welcome",
       "pageCount": 812,
       "genre": "Melodrama"

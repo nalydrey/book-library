@@ -1,13 +1,13 @@
 import './App.css';
-import LeftPanel from '../LeftPanel/LeftPanel';
+import Home from "../Home/Home";
 
-// export const url = 'http://localhost:3001/'
-export const url = '/'
+export const url = 'http://localhost:3001/'
+// export const url = '/'
 
 function App() {
   return (
     <div className="App">
-    <LeftPanel/>
+        <Home/>
     </div>
   );
 }
