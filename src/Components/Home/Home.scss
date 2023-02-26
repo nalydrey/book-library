@@ -9,3 +9,9 @@
     cursor: pointer;
     background: #e8c39c;
 }
+
+@media (max-width: 850px) {
+    .show__all{
+        padding: 15px 0;
+    }
+}

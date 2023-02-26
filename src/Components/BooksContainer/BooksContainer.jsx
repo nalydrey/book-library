@@ -9,7 +9,7 @@ import * as PropTypes from "prop-types";
 
 const BooksContainer = (props) => {
 
-    const {authorId=''} = props
+    const {authorId='', refreshBooks, afterLoadBooks=()=>{}} = props
 
 
     const limit = 2
@@ -40,54 +40,69 @@ const BooksContainer = (props) => {
         }
     ]
 
+    const initState = {
+        searchString: '',
+        sortString: ''
+    }
+
     const [books, setBooks] = useState([])
     const [totalBooks, setTotalBooks] = useState(0)
     const [pageQty, setPageQty] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
+    const [query, setString] = useState(initState)
+    const [refresh, setRefresh] = useState(false)
 
-    const loadBooks = (string) =>{
-        console.log(authorId)
-        axios.get(url+`books?${authorId&&`author=${authorId}`}&_limit=${limit}&_page=${currentPage}&${string}`)
+
+
+    const loadBooks = () =>{
+        axios.get(url+`books?${authorId&&`author=${authorId}`}&_limit=${limit}&_page=${currentPage}&_sort=${query.sortString}&name_like=${query.searchString}`)
             .then(resp => {
                 const totalBooks = +resp.headers['x-total-count']
                 const pages = Math.ceil(totalBooks/limit)
                 setTotalBooks(totalBooks)
                 setPageQty(pages)
                 setBooks(resp.data)
+                afterLoadBooks()
+
             }
         )
     }
 
     useEffect(()=>{
-        // console.log(authorId)
         loadBooks()
-    }, [currentPage, authorId])
+    }, [currentPage, authorId, query.searchString, query.sortString, refreshBooks, refresh])
+
+    const afterDelete = () => {
+        setRefresh(!refresh)
+        books.length===1 && currentPage!==1 && setCurrentPage(currentPage-1)
+
+    }
 
     const sort = (e) => {
         console.log(e.target.value)
         switch (e.target.value){
             case 'name': {
-                loadBooks('_sort=name&_order=asc')
+                setString({...query, sortString: 'name&_order=asc'})
                 break
             }
             case 'nameRev': {
-                loadBooks('_sort=name&_order=desc')
+                setString({...query, sortString: 'name&_order=desc'})
                 break
             }
             case 'count': {
-                loadBooks('_sort=pageCount&_order=asc')
+                setString({...query, sortString: 'pageCount&_order=asc'})
                 break
             }
             case 'countRev': {
-                loadBooks('_sort=pageCount&_order=desc')
+                setString({...query, sortString: 'pageCount&_order=desc'})
                 break
             }
             case 'genre': {
-                loadBooks('_sort=genre&_order=asc')
+                setString({...query, sortString: 'genre&_order=asc'})
                 break
             }
             case 'genreRev': {
-                loadBooks('_sort=genre&_order=desc')
+                setString({...query, sortString: 'genre&_order=desc'})
                 break
             }
         }
@@ -98,9 +113,8 @@ const BooksContainer = (props) => {
     <div className='book__container'>
       <div className='books__control'>
         <Box sx={{minWidth: '250px', maxWidth: '350px', width: '100%', display: 'flex', alignItems: 'flex-end' }}>
-          {/*<Search color={'primary'} sx={{ mr: 1, my: 0.5 }} />*/}
           <TextField label="Find by name"
-                     onChange={(e) => loadBooks(`name_like=${e.target.value}`)}
+                     onChange={(e) => setString({...query, searchString: e.target.value})}
                      variant="standard"
                      fullWidth
           />
@@ -125,6 +139,7 @@ const BooksContainer = (props) => {
       <div className='books__content'>
         {books.map(book => <BookCard key={book.id}
                                      book={book}
+                                     loadBooks={afterDelete}
         />)}
       </div>
 
@@ -134,7 +149,8 @@ const BooksContainer = (props) => {
                             count={pageQty}
                             onChange={(_, number)=> setCurrentPage(number)}
                             page={currentPage}
-                            shape="rounded" />
+                            shape="rounded"
+                />
       </div>}
 
     </div>
